@@ -35,7 +35,7 @@ Hook returns `[response, request]`
 `respose` is an object with properties: `data`, `loading`, `error`  
 
 `request (method, params, body)`  
-`method` is a name of the api service method  
+`method` is a name of the method in the api service
 `params` and `body` are optional
 
 Example:  
