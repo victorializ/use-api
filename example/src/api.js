@@ -6,24 +6,48 @@ const fakeRequest = (data, error, delay = 1000) =>
     delay)
 );
 
-const baseUrl = 'test';
+const baseUrl = 'user';
 
-const methods = {
-    getAll: 'getAll',
-    getById: 'getById',
-    post: 'post', 
-    put: 'put',
-    delete: 'delete',
-    error: 'error'
-};
+function getUsers() {
+    return fakeRequest({method: 'get', baseUrl});
+}
+
+function getUserById(id) {
+    return fakeRequest({method: 'get', baseUrl, id});
+}
+
+function newUser(params, data) {
+    return fakeRequest({method: 'post', baseUrl, data});
+}
+
+function updateUser(id, data) {
+    return fakeRequest({method: 'put', baseUrl, id, data});
+}
+
+function deleteUser(id) {
+    return fakeRequest({method: 'delete', baseUrl, id});
+}
+
+function error() {
+    return fakeRequest(null, 'error occurred');
+}
 
 const api = {
-    [methods.getAll]: () => fakeRequest({method: 'get', baseUrl}),
-    [methods.getById]: id => fakeRequest({method: 'get', baseUrl, id}),
-    [methods.post]: (params, data) => fakeRequest({method: 'post', baseUrl, data}),
-    [methods.put]: (id, data) => fakeRequest({method: 'post', baseUrl, id, data}),
-    [methods.delete]: id => fakeRequest({method: 'delete', baseUrl, id}),
-    [methods.error]: () => fakeRequest(null, 'error occurred')
+    getUsers,
+    getUserById,
+    newUser,
+    updateUser,
+    deleteUser,
+    error
+};
+
+const methods = {
+    getUsers: 'getUsers',
+    getUserById: 'getUserById',
+    newUser: 'newUser', 
+    updateUser: 'updateUser',
+    deleteUser: 'deleteUser',
+    error: 'error'
 };
 
 export default useApi(api);
