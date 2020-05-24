@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
-import { api } from './api';
 
-const useApi = (initialQuery, initialParams) => {
+const useApi = api => (initialQuery, initialParams) => {
   const [query, setQuery] = useState(initialQuery);
   const [params, setParams] = useState(initialParams);
   const [body, setBody] = useState(null);

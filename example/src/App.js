@@ -1,6 +1,6 @@
 import React from 'react';
 
-import useApi from '/useApi';
+import useApi from './useApi';
 import api from './api';
 
 import './App.css';
