@@ -10,6 +10,7 @@ const useApi = api => (initialQuery, initialParams) => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    let isMounted = true;
     const request = async () => {
       setError(null);
       setLoading(true);
@@ -21,24 +22,23 @@ const useApi = api => (initialQuery, initialParams) => {
       }
       setLoading(false);
     };
-    if(query) {
+    if(query && isMounted) {
       request();
+      setQuery(null);
+      setParams(null);
+      setBody(null);
     }
-  }, [query, body, params]);
+    () => {
+      isMounted = false;
+    }
+  }, [query, params, body]);
 
-  const cleanUp = () => {
-    setQuery(null);
-    setParams(null);
-    setBody(null);
+  const request = (query, params, body) => {
     setData(null);
     setError(null);
-  };
-
-  const request = (url, params, body) => {
-    cleanUp();
-    url && setQuery(url);
-    params && setParams(params);
-    body && setBody(body);
+    setQuery(query);
+    setParams(params);
+    setBody(body);
   };
 
   return [{ 
