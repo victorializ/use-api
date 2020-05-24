@@ -1,12 +1,14 @@
-const request = (data, error, delay = 1000) => 
+import useApi from '../../useApi';
+
+const fakeRequest = (data, error, delay = 1000) => 
     new Promise((resolve, reject) => 
         setTimeout(() => error ? reject(error) : resolve(data), 
     delay)
 );
 
-const url = 'test';
+const baseUrl = 'test';
 
-const actions = {
+const methods = {
     getAll: 'getAll',
     getById: 'getById',
     post: 'post', 
@@ -16,13 +18,13 @@ const actions = {
 };
 
 const api = {
-    getAll: () => request({url}),
-    getById: id => request({url, id}),
-    post: (params, data) => request({url, data}),
-    put: (id, data) => request({url, id, data}),
-    delete: id => request({url, id}),
-    error: () => request(null, 'error occurred')
+    [methods.getAll]: () => fakeRequest({method: 'get', baseUrl}),
+    [methods.getById]: id => fakeRequest({method: 'get', baseUrl, id}),
+    [methods.post]: (params, data) => fakeRequest({method: 'post', baseUrl, data}),
+    [methods.put]: (id, data) => fakeRequest({method: 'post', baseUrl, id, data}),
+    [methods.delete]: id => fakeRequest({method: 'delete', baseUrl, id}),
+    [methods.error]: () => fakeRequest(null, 'error occurred')
 };
 
-export { api };
-export default actions;
+export default useApi(api);
+export {methods as api};
