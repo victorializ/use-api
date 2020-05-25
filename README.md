@@ -43,7 +43,7 @@ Example:
 function App() {
     const [response, request] = useUserApi('getUsers'); // fetch data after mounting
 
-    const handleClick = id => request('updateUser, 1, user); // fetch data in the event handler
+    const handleClick = id => request('updateUser', 1, user); // fetch data in the event handler
 
     return (
       response.loader ? <Loader /> : <Data /> //render depending on the response  
